@@ -7,16 +7,16 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    if (tasks?.length<0) return "";
-    else{
-      localStorage.setItem('tasks', JSON.stringify(tasks))
-    }
+    if (tasks.length===0) return;
+  
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+  
   }, [tasks])
 
   useEffect(() => {
-    const tasks = JSON.parse(localStorage.getItem("tasks"))
+    const tasks = JSON.parse(localStorage.getItem('tasks'))
     setTasks(tasks)
-  },[])
+  }, [])
 
   const onAdd = (name) => {
     setTasks(prev => {
@@ -25,12 +25,12 @@ function App() {
   }
 
   const numberComplete = tasks.filter((t) => t.done).length;
-  const totalTask = tasks?.length ?? 0
+  const totalTask = tasks?.length;
   const handleTaskDone = (taskindex, newdone) => {
     setTasks(prev => {
       const newTaskStatus = [...prev];
       newTaskStatus[taskindex].done = newdone;
-      return newTaskStatus
+      return newTaskStatus;
     })
   }
 
@@ -46,7 +46,7 @@ function App() {
   }
 
   const removeTrash = (indexToRemove) => {
-    console.log(indexToRemove,"indexremove")
+    console.log(indexToRemove, "indexremove")
     setTasks(prev => {
       return prev.filter((taskObject, index) => {
         return index !== indexToRemove
